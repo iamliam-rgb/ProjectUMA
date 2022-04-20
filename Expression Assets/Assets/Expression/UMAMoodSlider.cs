@@ -199,5 +199,6 @@ public class UMAMoodSlider : MonoBehaviour {
     {
 		isHappy = false;
 		isSad = true;
-    }
+		anim.SetBool("HeadShake", false);
+	}
 }

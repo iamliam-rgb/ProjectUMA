@@ -21,5 +21,19 @@ public class Equipable : MonoBehaviour
 
     [Tooltip("This string is reponsible for determining which list to search from. This allows this script to deactivate the other items in the list to replace it with this one")]
     [SerializeField] public string categoryOfItem;
-    
+
+    AudioSource interactSoundSource;
+
+    private void Awake()
+    {
+        interactSoundSource = GetComponent<AudioSource>();
+    }
+
+    /// <summary>
+    /// This function is called by the Player States script
+    /// </summary>
+    public void PlayInteractSound()
+    {
+        interactSoundSource.Play();
+    }
 }
