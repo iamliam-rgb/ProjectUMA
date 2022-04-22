@@ -22,11 +22,24 @@ public class Equipable : MonoBehaviour
     [Tooltip("This string is reponsible for determining which list to search from. This allows this script to deactivate the other items in the list to replace it with this one")]
     [SerializeField] public string categoryOfItem;
 
+    [Tooltip("This string is reponsible for determining the respoonse of the HUD npc")] //TEMP
+    [SerializeField] public string response;
+
+    [SerializeField] public enum EmotionalResponse { happy, sad};
+    [SerializeField] public EmotionalResponse emotionalResponse;
+
     AudioSource interactSoundSource;
 
+    //TEMP STUFF
+     DialogueScript temp;
+     UMAMoodSlider moodScript;
     private void Awake()
     {
         interactSoundSource = GetComponent<AudioSource>();
+
+        temp = FindObjectOfType<DialogueScript>();
+        moodScript = FindObjectOfType<UMAMoodSlider>();
+        
     }
 
     /// <summary>
@@ -34,6 +47,23 @@ public class Equipable : MonoBehaviour
     /// </summary>
     public void PlayInteractSound()
     {
+        temp.ChangeDialogue(response);
+        ActivateEmotionalResponse();
         //interactSoundSource.Play();
     }
+
+    public void ActivateEmotionalResponse()
+    {
+        switch (emotionalResponse)
+        {
+            case EmotionalResponse.happy:
+                moodScript.OnHappy();
+                break;
+
+            case EmotionalResponse.sad:
+                moodScript.OnSad();
+                break;
+        }
+    }
+    
 }
